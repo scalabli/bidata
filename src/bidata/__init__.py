@@ -1,4 +1,4 @@
-from ._json import deprecated_json as json
+from .notation import deprecated_json as json
 from .encoding import base64_decode
 from .encoding import base64_encode
 from .encoding import want_bytes
