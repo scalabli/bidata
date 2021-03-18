@@ -1,15 +1,14 @@
-import typing as _t
+import typing as _mtnd
 from datetime import datetime
 
-_t_opt_any = _t.Optional[_t.Any]
-_t_opt_exc = _t.Optional[Exception]
+any_data_ = _mtnd.Optional[_mtnd.Any]
+any_exception_ = _mtnd.Optional[Exception]
 
 
 class BadData(Exception):
     """Raised if bad data of any sort was encountered. This is the base
     for all exceptions that ItsDangerous defines.
 
-    .. versionadded:: 0.15
     """
 
     def __init__(self, message: str):
@@ -23,7 +22,7 @@ class BadData(Exception):
 class BadSignature(BadData):
     """Raised if a signature does not match."""
 
-    def __init__(self, message: str, payload: _t_opt_any = None):
+    def __init__(self, message: str, payload: any_data_ = None):
         super().__init__(message)
 
         #: The payload that failed the signature test. In some
@@ -31,7 +30,7 @@ class BadSignature(BadData):
         #: you know it was tampered with.
         #:
         #: .. versionadded:: 0.14
-        self.payload: _t_opt_any = payload
+        self.payload: any_data_ = payload
 
 
 class BadTimeSignature(BadSignature):
@@ -42,8 +41,8 @@ class BadTimeSignature(BadSignature):
     def __init__(
         self,
         message: str,
-        payload: _t_opt_any = None,
-        date_signed: _t.Optional[datetime] = None,
+        payload: any_data_ = None,
+        date_signed: _mtnd.Optional[datetime] = None,
     ):
         super().__init__(message, payload)
 
@@ -75,19 +74,19 @@ class BadHeader(BadSignature):
     def __init__(
         self,
         message: str,
-        payload: _t_opt_any = None,
-        header: _t_opt_any = None,
-        original_error: _t_opt_exc = None,
+        payload: any_data_ = None,
+        header: any_data_ = None,
+        original_error: any_exception_ = None,
     ):
         super().__init__(message, payload)
 
         #: If the header is actually available but just malformed it
         #: might be stored here.
-        self.header: _t_opt_any = header
+        self.header: any_data_ = header
 
         #: If available, the error that indicates why the payload was
         #: not valid. This might be ``None``.
-        self.original_error: _t_opt_exc = original_error
+        self.original_error: any_exception_ = original_error
 
 
 class BadPayload(BadData):
@@ -99,9 +98,9 @@ class BadPayload(BadData):
     .. versionadded:: 0.15
     """
 
-    def __init__(self, message: str, original_error: _t_opt_exc = None):
+    def __init__(self, message: str, original_error: any_exception_ = None):
         super().__init__(message)
 
         #: If available, the error that indicates why the payload was
         #: not valid. This might be ``None``.
-        self.original_error: _t_opt_exc = original_error
+        self.original_error: any_exception_ = original_error
