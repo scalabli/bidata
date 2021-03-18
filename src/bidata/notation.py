@@ -1,24 +1,24 @@
 import json
-import typing as _t
 from types import ModuleType
+import typing as _mtnd
 
 
 class _CompactJSON:
     """Wrapper around json module that strips whitespace."""
 
     @staticmethod
-    def loads(payload: _t.Union[str, bytes]) -> _t.Any:
+    def loads(payload: _mtnd.Union[str, bytes]) -> _mtnd.Any:
         return json.loads(payload)
 
     @staticmethod
-    def dumps(obj: _t.Any, **kwargs: _t.Any) -> str:
+    def dumps(obj: _mtnd.Any, **kwargs: _mtnd.Any) -> str:
         kwargs.setdefault("ensure_ascii", False)
         kwargs.setdefault("separators", (",", ":"))
         return json.dumps(obj, **kwargs)
 
 
 class DeprecatedJSON(ModuleType):
-    def __getattribute__(self, item: str) -> _t.Any:
+    def __getattribute__(self, item: str) -> _mtnd.Any:
         import warnings
 
         warnings.warn(
