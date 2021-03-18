@@ -18,15 +18,14 @@ def want_bytes(
 
 
 def base64_encode(string: _mtnd_str_bytes) -> bytes:
-    """Base64 encode a string of bytes or text. The resulting bytes are
-    safe to use in URLs.
+    """Base64 encodes data thus making it safe to use in a URL
     """
     string = want_bytes(string)
     return base64.urlsafe_b64encode(string).rstrip(b"=")
 
 
 def base64_decode(string: _mtnd_str_bytes) -> bytes:
-    """Base64 decode a URL-safe string of bytes or text. The result is
+    """Base64 decodes a URL-safe string of bytes or text. The result is
     bytes.
     """
     string = want_bytes(string, encoding="ascii", errors="ignore")
